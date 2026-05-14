@@ -1,0 +1,393 @@
+{
+  "name": "fuelix-ai",
+  "displayName": "Fuelix AI — Next-Gen AI Pair Programmer",
+  "description": "Enterprise-grade AI pair programmer with repository-wide context, multi-agent orchestration, and ultra-low latency completions. Rivals GitHub Copilot, Cursor AI, and Claude Code.",
+  "version": "1.0.0",
+  "publisher": "FuelixAI",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ananthapadmanabhan333/VS-Code-AI-Pair-Programmer-Extension.git"
+  },
+  "icon": "assets/icon.png",
+  "galleryBanner": {
+    "color": "#0D0D1A",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Programming Languages",
+    "Other",
+    "Machine Learning"
+  ],
+  "keywords": [
+    "ai",
+    "copilot",
+    "autocomplete",
+    "chatgpt",
+    "openai",
+    "pair programmer",
+    "code generation",
+    "refactoring",
+    "debugging"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "fuelix.openChat",
+        "title": "Fuelix: Open AI Chat",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "fuelix.explainCode",
+        "title": "Fuelix: Explain Code",
+        "icon": "$(lightbulb)"
+      },
+      {
+        "command": "fuelix.refactorCode",
+        "title": "Fuelix: Refactor Code",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "fuelix.debugCode",
+        "title": "Fuelix: Debug & Fix Code",
+        "icon": "$(bug)"
+      },
+      {
+        "command": "fuelix.generateTests",
+        "title": "Fuelix: Generate Tests",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "fuelix.terminalAssistant",
+        "title": "Fuelix: Terminal Assistant",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "fuelix.architectureAnalysis",
+        "title": "Fuelix: Architecture Analysis",
+        "icon": "$(circuit-board)"
+      },
+      {
+        "command": "fuelix.generateDocs",
+        "title": "Fuelix: Generate Documentation",
+        "icon": "$(book)"
+      },
+      {
+        "command": "fuelix.securityReview",
+        "title": "Fuelix: Security Review",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "fuelix.optimizeCode",
+        "title": "Fuelix: Optimize Performance",
+        "icon": "$(zap)"
+      },
+      {
+        "command": "fuelix.indexRepository",
+        "title": "Fuelix: Index Repository",
+        "icon": "$(database)"
+      },
+      {
+        "command": "fuelix.clearMemory",
+        "title": "Fuelix: Clear AI Memory",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "fuelix.showMemoryPanel",
+        "title": "Fuelix: Show Memory Panel",
+        "icon": "$(brain)"
+      },
+      {
+        "command": "fuelix.configureApiKey",
+        "title": "Fuelix: Configure API Key",
+        "icon": "$(key)"
+      },
+      {
+        "command": "fuelix.showDashboard",
+        "title": "Fuelix: Show Analytics Dashboard",
+        "icon": "$(graph)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "fuelix.openChat",
+        "key": "ctrl+shift+a",
+        "mac": "cmd+shift+a"
+      },
+      {
+        "command": "fuelix.explainCode",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "fuelix.refactorCode",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "fuelix.debugCode",
+        "key": "ctrl+shift+d",
+        "mac": "cmd+shift+d",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "fuelix.generateTests",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "fuelix.terminalAssistant",
+        "key": "ctrl+shift+`",
+        "mac": "cmd+shift+`"
+      },
+      {
+        "command": "fuelix.optimizeCode",
+        "key": "ctrl+shift+o",
+        "mac": "cmd+shift+o",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "fuelix.generateDocs",
+        "key": "ctrl+shift+g",
+        "mac": "cmd+shift+g",
+        "when": "editorHasSelection"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "fuelix-sidebar",
+          "title": "Fuelix AI",
+          "icon": "assets/sidebar-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "fuelix-sidebar": [
+        {
+          "type": "webview",
+          "id": "fuelix.chatView",
+          "name": "AI Chat",
+          "icon": "assets/sidebar-icon.svg",
+          "contextualTitle": "Fuelix AI Chat"
+        },
+        {
+          "id": "fuelix.memoryView",
+          "name": "Memory & Context",
+          "icon": "$(database)"
+        },
+        {
+          "id": "fuelix.agentsView",
+          "name": "Active Agents",
+          "icon": "$(circuit-board)"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "submenu": "fuelix.editorContextMenu",
+          "group": "fuelix",
+          "when": "editorHasSelection"
+        }
+      ],
+      "fuelix.editorContextMenu": [
+        {
+          "command": "fuelix.explainCode",
+          "group": "1_explain"
+        },
+        {
+          "command": "fuelix.refactorCode",
+          "group": "2_refactor"
+        },
+        {
+          "command": "fuelix.debugCode",
+          "group": "3_debug"
+        },
+        {
+          "command": "fuelix.generateTests",
+          "group": "4_tests"
+        },
+        {
+          "command": "fuelix.optimizeCode",
+          "group": "5_optimize"
+        },
+        {
+          "command": "fuelix.generateDocs",
+          "group": "6_docs"
+        },
+        {
+          "command": "fuelix.securityReview",
+          "group": "7_security"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "fuelix.explainCode",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "fuelix.refactorCode",
+          "when": "editorHasSelection"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "id": "fuelix.editorContextMenu",
+        "label": "Fuelix AI"
+      }
+    ],
+    "configuration": {
+      "title": "Fuelix AI",
+      "properties": {
+        "fuelix.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI API Key (stored securely in VS Code Secret Storage)",
+          "scope": "application"
+        },
+        "fuelix.model": {
+          "type": "string",
+          "default": "gpt-4o",
+          "enum": ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo", "claude-3-5-sonnet-20241022", "claude-3-haiku-20240307"],
+          "description": "Primary AI model for completions and chat",
+          "scope": "window"
+        },
+        "fuelix.completionModel": {
+          "type": "string",
+          "default": "gpt-4o-mini",
+          "description": "Fast model for inline completions (lower latency)",
+          "scope": "window"
+        },
+        "fuelix.enableInlineCompletions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable ghost text inline completions",
+          "scope": "window"
+        },
+        "fuelix.completionDebounceMs": {
+          "type": "number",
+          "default": 300,
+          "description": "Debounce delay in ms before triggering completions",
+          "scope": "window"
+        },
+        "fuelix.maxCompletionTokens": {
+          "type": "number",
+          "default": 256,
+          "description": "Maximum tokens for inline completions",
+          "scope": "window"
+        },
+        "fuelix.enableRepositoryIndex": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable repository-wide indexing for context awareness",
+          "scope": "window"
+        },
+        "fuelix.contextWindowSize": {
+          "type": "number",
+          "default": 8000,
+          "description": "Maximum context tokens to include per request",
+          "scope": "window"
+        },
+        "fuelix.enableTelemetry": {
+          "type": "boolean",
+          "default": false,
+          "description": "Send anonymized usage telemetry to improve Fuelix AI",
+          "scope": "application"
+        },
+        "fuelix.theme": {
+          "type": "string",
+          "default": "dark",
+          "enum": ["dark", "light", "auto"],
+          "description": "Fuelix UI theme",
+          "scope": "window"
+        },
+        "fuelix.streamingEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable streaming responses in chat",
+          "scope": "window"
+        },
+        "fuelix.memoryEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable persistent AI memory across sessions",
+          "scope": "window"
+        },
+        "fuelix.excludePatterns": {
+          "type": "array",
+          "default": ["**/node_modules/**", "**/.git/**", "**/dist/**", "**/build/**", "**/*.lock"],
+          "description": "Glob patterns to exclude from repository indexing",
+          "scope": "window"
+        },
+        "fuelix.maxFileSizeKb": {
+          "type": "number",
+          "default": 500,
+          "description": "Maximum file size in KB for indexing",
+          "scope": "window"
+        },
+        "fuelix.anthropicApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Anthropic API key for Claude models",
+          "scope": "application"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "npm run build:extension && npm run build:webview",
+    "build:extension": "esbuild src/extension.ts --bundle --outfile=out/extension.js --external:vscode --external:better-sqlite3 --external:tree-sitter --format=cjs --platform=node --minify --sourcemap",
+    "build:webview": "cd webview-ui && npm run build",
+    "watch": "concurrently \"npm run watch:extension\" \"npm run watch:webview\"",
+    "watch:extension": "esbuild src/extension.ts --bundle --outfile=out/extension.js --external:vscode --external:better-sqlite3 --external:tree-sitter --format=cjs --platform=node --sourcemap --watch",
+    "watch:webview": "cd webview-ui && npm run dev",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "test:unit": "jest",
+    "package": "vsce package",
+    "publish": "vsce publish",
+    "pretest": "npm run build:extension"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.3",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "@vscode/test-electron": "^2.3.6",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.19.8",
+    "eslint": "^8.54.0",
+    "glob": "^10.3.10",
+    "jest": "^29.7.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.3.2",
+    "@vscode/vsce": "^2.22.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.2.2",
+    "ignore": "^5.3.0",
+    "openai": "^4.24.1",
+    "@anthropic-ai/sdk": "^0.20.1",
+    "fuse.js": "^7.0.0",
+    "p-queue": "^8.0.1",
+    "zod": "^3.22.4"
+  }
+}
