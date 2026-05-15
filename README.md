@@ -76,4 +76,4 @@ Contributions are welcome! If you have ideas for new features or agents, please 
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Built with ❤️ by the Fuelix AI Team.
+Built by Ananthapadmanabhan.
